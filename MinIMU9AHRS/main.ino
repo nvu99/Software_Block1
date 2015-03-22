@@ -1,7 +1,6 @@
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
 #include <Adafruit_LSM303_U.h>
-
 #include <Servo.h>
 #include <math.h>
 
