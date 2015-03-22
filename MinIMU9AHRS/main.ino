@@ -11,15 +11,15 @@ Servo motors[mCount];
 int ports [mCount] = {2, 3, 4, 5}; //Port of each servo
 int motorPos [mCount];
 
-/*float volt_vPow = 4.7;
+float volt_vPow = 4.7;
 float volt_r1 = 100000;
-float volt_r2 = 10000;*/
+float volt_r2 = 10000;
  
 Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified(12345);
 Adafruit_LSM303_Accel_Unified accel = Adafruit_LSM303_Accel_Unified(54321);
 
 void setup() {
-  //Initialize motors
+ 
   for (int i = 0; i < mCount; ++i) {
     motors [i].attach (ports [i]);
     motorPos [i] = 0;
@@ -39,16 +39,15 @@ void setup() {
   Serial.println("Initializing sensors:");
   if(!mag.begin())
   {
-    /* There was a problem detecting the LSM303 ... check your connections */
-    Serial.println("Ooops, no LSM303 detected ... Check your wiring!");
+    Serial.println("LSM303 disconnected");
     //while(1);
   }
   
-  /* Initialise the sensor */
+  
   if(!accel.begin())
   {
-    /* There was a problem detecting the ADXL345 ... check your connections */
-    Serial.println("Ooops, no LSM303 detected ... Check your wiring!");
+   
+    Serial.println("LSM303 disconnected");
     //while(1);
   }
   
@@ -72,9 +71,9 @@ void loop() {
 }
 
 void sensors() {
- /*float volt_v = (analogRead(0) * volt_vPow) / 1024.0;
+ float volt_v = (analogRead(0) * volt_vPow) / 1024.0;
  float volt_v2 = volt_v / (volt_r2 / (volt_r1 + volt_r2));
- float volt_def = floor(volt_v2 * 100) / 100;*/
+ float volt_def = floor(volt_v2 * 100) / 100;
  
   for (int i = 0; i < 4; ++i) {
   Serial.print(motors [i].read(), DEC);
@@ -109,11 +108,8 @@ void sensors() {
   Serial.print(ToDeg(yaw)); Serial.print(" ");
   Serial.print(pressure); Serial.print(" ");
   Serial.print(altitude); Serial.print(" ");
-  Serial.print(temperature); Serial.println(" ");
-  
-  
-  
- //Serial.print(volt_def, DEC);
+  Serial.print(temperature); Serial.print(" ");
+  Serial.print(volt_def, DEC); Serial.println(" ");
 }
 
 void displaySensorDetails(void)
