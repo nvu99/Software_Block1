@@ -1,8 +1,4 @@
 #include <Wire.h>
-<<<<<<< HEAD
-=======
-#include <Adafruit_LSM303_U.h>
->>>>>>> 73bd376b0b5324fc8dd9f147bce79ace2de5e2bf
 #include <Servo.h>
 #include <math.h>
 
@@ -15,12 +11,6 @@ int motorPos [mCount];
 float volt_vPow = 4.7;
 float volt_r1 = 100000;
 float volt_r2 = 10000;
-<<<<<<< HEAD
-=======
- 
-Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified(12345);
-Adafruit_LSM303_Accel_Unified accel = Adafruit_LSM303_Accel_Unified(54321);
->>>>>>> 73bd376b0b5324fc8dd9f147bce79ace2de5e2bf
 
 void setup() {
  
@@ -40,25 +30,6 @@ void setup() {
     motors [i].write (motorPos[i]);
   }
   
-<<<<<<< HEAD
-=======
-  Serial.println("Initializing sensors:");
-  if(!mag.begin())
-  {
-    Serial.println("LSM303 disconnected");
-    //while(1);
-  }
-  
-  
-  if(!accel.begin())
-  {
-   
-    Serial.println("LSM303 disconnected");
-    //while(1);
-  }
-  
-  displaySensorDetails();
->>>>>>> 73bd376b0b5324fc8dd9f147bce79ace2de5e2bf
   pololuSetup();
 }
 
@@ -105,23 +76,4 @@ void sensors() {
   Serial.print(altitude); Serial.print(" ");
   Serial.print(temperature); Serial.print(" ");
   Serial.print(volt_def, DEC); Serial.println(" ");
-<<<<<<< HEAD
-=======
-}
-
-void displaySensorDetails(void)
-{
-  sensor_t sensor;
-  accel.getSensor(&sensor);
-  Serial.println("------------------------------------");
-  Serial.print  ("Sensor:       "); Serial.println(sensor.name);
-  Serial.print  ("Driver Ver:   "); Serial.println(sensor.version);
-  Serial.print  ("Unique ID:    "); Serial.println(sensor.sensor_id);
-  Serial.print  ("Max Value:    "); Serial.print(sensor.max_value); Serial.println(" m/s^2");
-  Serial.print  ("Min Value:    "); Serial.print(sensor.min_value); Serial.println(" m/s^2");
-  Serial.print  ("Resolution:   "); Serial.print(sensor.resolution); Serial.println(" m/s^2");  
-  Serial.println("------------------------------------");
-  Serial.println("");
-  delay(500);
->>>>>>> 73bd376b0b5324fc8dd9f147bce79ace2de5e2bf
 }
