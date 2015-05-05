@@ -1,6 +1,8 @@
-#include <L3G.h>
+/*#include <L3G.h>
 #include <LSM303.h>
-#include <LPS.h>
+#include <LPS.h>*/
+
+
 
 L3G gyro;
 LSM303 compass;

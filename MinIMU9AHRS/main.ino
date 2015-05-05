@@ -13,14 +13,14 @@ float volt_r1 = 100000;
 float volt_r2 = 10000;
 
 void setup() {
- 
+   pololuSetup();
   for (int i = 0; i < mCount; ++i) {
     motors [i].attach (ports [i]);
     motorPos [i] = 0;
     motors [i].write (motorPos [i]);
   }
   //Setup serial connection
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.setTimeout(10);
   
   delay(3000);
@@ -30,22 +30,16 @@ void setup() {
     motors [i].write (motorPos[i]);
   }
   
-  pololuSetup();
+
 }
 
 //Read commands and set the motors
 void loop() {
-  if (Serial.available()) {      
-    for (int i = 0; i < mCount; ++i) {
-            motorPos [i] = Serial.parseInt();
-    }
-  }       
-  for (int i = 0; i < mCount; ++i) {
-     motors [i].write (motorPos [i]); 
-  }
+  
+  receiveData();
+  receiveData();
   
   sensors();
-        
 }
 
 void sensors() {
@@ -54,21 +48,35 @@ void sensors() {
  float volt_def = floor(volt_v2 * 100) / 100;
  
   for (int i = 0; i < 4; ++i) {
-  Serial.print(motors [i].read(), DEC);
-  Serial.print(" ");
+  Serial.print(motors [i].read());
+  receiveData();
+  Serial.print(" "); 
   }
- 
-  float Pi = 3.14159;
+  /*Serial.print("0 ");
+  Serial.print("0 ");
+  Serial.print("0 ");
+  Serial.print("0 ");
+  Serial.print("0.1 ");
+  Serial.print("160 ");
+  Serial.print("1018 ");
+  Serial.print("20 ");
+  Serial.print("23 ");
+  Serial.print("11.09 ");
+  
+  Serial.println(" ");*/
+
+
   
   
   pololuLoop();
-  String s = " " + (int)accel_x;
+  String s = "" + String (accel_x);
   s += " ";
-  s += " " + (int)accel_y;
+  s += " " + String(accel_y);
   s += " "; 
-  s += " " + (int)accel_z;
+  s += " " + String(accel_z);
   s += " ";
   Serial.print (s);
+  //Serial.print("0 0 0 ");
   Serial.print(ToDeg(roll)); Serial.print(" ");
   Serial.print(ToDeg(pitch)); Serial.print(" ");
   Serial.print(ToDeg(yaw)); Serial.print(" ");
@@ -76,4 +84,16 @@ void sensors() {
   Serial.print(altitude); Serial.print(" ");
   Serial.print(temperature); Serial.print(" ");
   Serial.print(volt_def, DEC); Serial.println(" ");
+}
+
+void receiveData() {
+  if (Serial.available()) {      
+    for (int i = 0; i < mCount; ++i) {
+            motorPos [i] = Serial.parseInt();
+            motors [i].write (motorPos[i]);
+    }
+  }       
+  for (int i = 0; i < mCount; ++i) {
+     motors [i].write (motorPos [i]); 
+  }
 }

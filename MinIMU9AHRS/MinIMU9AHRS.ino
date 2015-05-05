@@ -1,3 +1,9 @@
+#include <LSM303.h>
+
+#include <LPS.h>
+
+#include <L3G.h>
+
 
 
 // Uncomment the below line to use this axis definition: 
