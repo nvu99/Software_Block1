@@ -52,31 +52,14 @@ void sensors() {
   receiveData();
   Serial.print(" "); 
   }
-  /*Serial.print("0 ");
-  Serial.print("0 ");
-  Serial.print("0 ");
-  Serial.print("0 ");
-  Serial.print("0.1 ");
-  Serial.print("160 ");
-  Serial.print("1018 ");
-  Serial.print("20 ");
-  Serial.print("23 ");
-  Serial.print("11.09 ");
-  
-  Serial.println(" ");*/
-
 
   
   
   pololuLoop();
   String s = "" + String (accel_x);
-  s += " ";
   s += " " + String(accel_y);
-  s += " "; 
   s += " " + String(accel_z);
-  s += " ";
-  Serial.print (s);
-  //Serial.print("0 0 0 ");
+  Serial.print (s); Serial.print(" ");
   Serial.print(ToDeg(roll)); Serial.print(" ");
   Serial.print(ToDeg(pitch)); Serial.print(" ");
   Serial.print(ToDeg(yaw)); Serial.print(" ");
