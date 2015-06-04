@@ -1,3 +1,5 @@
+#include <PinChangeInt.h>
+
 #include <LSM303.h>
 
 #include <LPS.h>
@@ -111,6 +113,22 @@ float errorYaw[3]= {0,0,0};
 
 unsigned int counter=0;
 byte gyro_sat=0;
+
+//custom variables
+
+long duration;
+long cm;
+
+float volt_vPow = 4.7;
+float volt_r1 = 100000;
+float volt_r2 = 10000;
+float volt_v;
+float volt_v2;
+
+ volatile byte half_revolutions[4] = {0, 0, 0, 0};
+ unsigned int rpm[4] = {0, 0, 0, 0};
+ unsigned long timeold[4] = {0, 0, 0, 0};
+
 
 float DCM_Matrix[3][3]= {
   {
