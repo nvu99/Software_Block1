@@ -13,7 +13,10 @@ int motorPos [mCount];
 
 
 void setup() {
+  
   pololuSetup();
+  attachRPMSensors();
+  
   for (int i = 0; i < mCount; ++i) {
     motors [i].attach (ports [i]);
     motorPos [i] = 0;
