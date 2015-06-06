@@ -1,5 +1,3 @@
-#include <PinChangeInt.h>
-
 #include <LSM303.h>
 
 #include <LPS.h>
@@ -128,6 +126,7 @@ float volt_v2;
  volatile byte half_revolutions[4] = {0, 0, 0, 0};
  unsigned int rpm[4] = {0, 0, 0, 0};
  unsigned long timeold[4] = {0, 0, 0, 0};
+ int interruptPins[4] = {2, 3, 21, 20};
 
 
 float DCM_Matrix[3][3]= {

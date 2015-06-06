@@ -22,7 +22,7 @@ long microsecondsToCentimeters(long microseconds)
 
 void getVoltage()
 {
- volt_v = (analogRead(0) * volt_vPow) / 1024.0;
+ volt_v = (analogRead(1) * volt_vPow) / 1024.0;
  volt_v2 = volt_v / (volt_r2 / (volt_r1 + volt_r2)); 
 }
 
@@ -45,15 +45,22 @@ void sendTelemetry()
   }
   
   Serial.print(volt_v2, 2); Serial.print(" ");
+  debugPrint();
   Serial.print(cm); Serial.println("");
 }
 
 void attachRPMSensors()
 {
-  PCintPort::attachInterrupt(2, rpm1, RISING); 
-  PCintPort::attachInterrupt(3, rpm2, RISING); 
-  PCintPort::attachInterrupt(4, rpm3, RISING); 
-  PCintPort::attachInterrupt(5, rpm4, RISING); 
+  for (int i=0; i<4; ++i)
+  {
+    pinMode(interruptPins[i], INPUT);
+    digitalWrite(interruptPins[i], HIGH); 
+  }
+  
+  attachInterrupt(0, rpm1, CHANGE); 
+  attachInterrupt(1, rpm2, CHANGE); 
+  attachInterrupt(2, rpm3, CHANGE); 
+  attachInterrupt(3, rpm4, CHANGE); 
 }
 
 void getRPM()

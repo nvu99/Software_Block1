@@ -7,15 +7,14 @@
 const int mCount = 4;
 Servo motors[mCount];
 
-int ports [mCount] = {4, 5, 6, 7}; //Port of each servo
+int ports [mCount] = {6, 7, 8, 9}; //Port of each servo
 int motorPos [mCount];
 
 
 
 void setup() {
   
-  pololuSetup();
-  attachRPMSensors();
+  Serial.println("Initializing motors...");
   
   for (int i = 0; i < mCount; ++i) {
     motors [i].attach (ports [i]);
@@ -32,6 +31,17 @@ void setup() {
     motorPos [i] = 50;
     motors [i].write (motorPos[i]);
   }
+  
+  Serial.println("Initializing sensors...");
+  
+  pololuSetup();
+  attachRPMSensors();
+  
+  delay(2000);
+
+  Serial.println("Initialization complete!");
+  
+  delay(500);
 }
 
 //Read commands and set the motors
@@ -40,27 +50,27 @@ void loop() {
   //noInterrupts();
   receiveData();
   receiveData();
-  
+
   //interrupts();
   sensors();
 }
 
 void sensors() {
  
-  for (int i = 0; i < 4; ++i) {
-  Serial.print(motors [i].read());
-  receiveData();
-  Serial.print(" "); 
-  }
-  
   distanceSensor();
   pololuLoop();
   getVoltage();
   getRPM();
   
+  for (int i = 0; i < 4; ++i) {
+  Serial.print(motors [i].read());
+  receiveData();
+  Serial.print(" "); 
+  }
   delay(2);
   
   sendTelemetry();
+  
   
   if (cm >= 150)
   {
@@ -72,7 +82,7 @@ void sensors() {
   }
   else if (cm >= 1)
   {
-   delay(14); 
+   delay(15); 
   }
   else
   {

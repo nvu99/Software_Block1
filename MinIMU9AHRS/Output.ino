@@ -68,3 +68,12 @@ long convert_to_dec(float x)
   return x*10000000;
 }
 
+void debugPrint()
+{
+  Serial.print(digitalRead(2)); Serial.print(" ");
+  Serial.print(half_revolutions[0]); Serial.print(" ");
+  Serial.print(half_revolutions[1]); Serial.print(" ");
+  Serial.print(half_revolutions[2]); Serial.print(" ");
+  Serial.print(half_revolutions[3]); Serial.print(" ");
+}
+
