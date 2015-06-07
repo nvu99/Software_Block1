@@ -26,7 +26,8 @@ void setup() {
   
   for (int i = 0; i < mCount; ++i) {
     motorPos [i] = 50;
-    motors [i].write (motorPos[i]);
+    motors [i].write (motorPos[i] >> 8);
+    motors [i].write (motorPos[i] & mask);
   }
 
   

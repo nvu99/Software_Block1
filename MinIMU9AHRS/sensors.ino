@@ -32,23 +32,33 @@ void sendTelemetry()
   s += " " + String(accel_y / 26.2 , 2);
   s += " " + String(accel_z / 26.2 , 2);
   Serial.print (s); Serial.print(" ");*/
-  Serial.write(accel_x / 262 * 1000);
-  Serial.write(accel_y / 262 * 1000);
-  Serial.write(accel_z / 262 * 1000);
-  Serial.write((int)ToDeg(roll)*100);
-  Serial.write((int)ToDeg(pitch)*100);
-  Serial.write((int)ToDeg(yaw)*100);
+  Serial.write(accel_x / 262 * 1000 >> 8);
+  Serial.write(accel_x / 262 * 1000 & mask);
+  Serial.write(accel_y / 262 * 1000 >> 8);
+  Serial.write(accel_y / 262 * 1000 & mask);
+  Serial.write(accel_z / 262 * 1000 >> 8);
+  Serial.write(accel_z / 262 * 1000 & mask);
+  Serial.write((int)ToDeg(roll)*100 >> 8);
+  Serial.write((int)ToDeg(roll)*100 & mask);
+  Serial.write((int)ToDeg(pitch)*100 >> 8);
+  Serial.write((int)ToDeg(pitch)*100 & mask);
+  Serial.write((int)ToDeg(yaw)*100 >> 8);
+  Serial.write((int)ToDeg(yaw)*100 & mask);
   /*Serial.print(pressure); Serial.print(" ");
   Serial.print(altitude); Serial.print(" ");
   Serial.print(temperature); Serial.print(" ");*/
   
   for (int i=0; i<4; ++i)
   {
-    Serial.write(rpm[i]); 
+    Serial.write(rpm[i] >> 8); 
+    Serial.write(rpm[i] & mask); 
   }
   
-  Serial.write((int)volt_v2*100);
-  Serial.write(cm); Serial.write("\n");
+  Serial.write((int)volt_v2*100 >> 8);
+  Serial.write((int)volt_v2*100 & mask);
+  Serial.write(cm >> 8); 
+  Serial.write(cm & mask);
+  Serial.write("\n");
   //debugPrint();
 }
 

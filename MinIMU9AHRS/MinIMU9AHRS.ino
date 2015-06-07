@@ -127,6 +127,8 @@ float volt_v2;
  unsigned int rpm[4] = {0, 0, 0, 0};
  unsigned long timeold[4] = {0, 0, 0, 0};
  int interruptPins[4] = {2, 3, 21, 20};
+ 
+ uint16_t mask   = B11111111; 
 
 
 float DCM_Matrix[3][3]= {
