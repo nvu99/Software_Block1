@@ -10,11 +10,8 @@ Servo motors[mCount];
 int ports [mCount] = {6, 7, 8, 9}; //Port of each servo
 int motorPos [mCount];
 
-
-
 void setup() {
   
-  Serial.println("Initializing motors...");
   
   for (int i = 0; i < mCount; ++i) {
     motors [i].attach (ports [i]);
@@ -31,17 +28,13 @@ void setup() {
     motorPos [i] = 50;
     motors [i].write (motorPos[i]);
   }
+
   
-  Serial.println("Initializing sensors...");
-  
-  pololuSetup();
-  attachRPMSensors();
+  //pololuSetup();
+  //attachRPMSensors();
   
   delay(2000);
 
-  Serial.println("Initialization complete!");
-  
-  delay(500);
 }
 
 //Read commands and set the motors
@@ -56,16 +49,15 @@ void loop() {
 }
 
 void sensors() {
- 
+  
   distanceSensor();
-  pololuLoop();
   getVoltage();
-  getRPM();
+  //getRPM();
+  //pololuLoop();
   
   for (int i = 0; i < 4; ++i) {
-  Serial.print(motors [i].read());
+  Serial.write(motors [i].read());
   receiveData();
-  Serial.print(" "); 
   }
   delay(2);
   
@@ -74,19 +66,19 @@ void sensors() {
   
   if (cm >= 150)
   {
-   delay(2); 
+   delay(22); 
   }
   else if (cm >= 50)
   {
-   delay(7); 
+   delay(32); 
   }
   else if (cm >= 1)
   {
-   delay(15); 
+   delay(40); 
   }
   else
   {
-   delay(2); 
+   delay(22); 
   }
 }
 

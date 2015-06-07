@@ -70,10 +70,10 @@ long convert_to_dec(float x)
 
 void debugPrint()
 {
-  Serial.print(digitalRead(2)); Serial.print(" ");
-  Serial.print(half_revolutions[0]); Serial.print(" ");
-  Serial.print(half_revolutions[1]); Serial.print(" ");
-  Serial.print(half_revolutions[2]); Serial.print(" ");
-  Serial.print(half_revolutions[3]); Serial.print(" ");
+  Serial.write(digitalRead(2));
+  Serial.write(half_revolutions[0]);
+  Serial.write(half_revolutions[1]);
+  Serial.write(half_revolutions[2]);
+  Serial.write(half_revolutions[3]);
 }
 

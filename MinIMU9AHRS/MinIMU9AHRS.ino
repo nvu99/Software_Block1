@@ -156,7 +156,7 @@ void pololuSetup()
   
   I2C_Init();
 
-  Serial.println("Pololu MinIMU-9 + Arduino AHRS");
+  //Serial.println("Pololu MinIMU-9 + Arduino AHRS");
 
   digitalWrite(STATUS_LED,LOW);
   delay(1500);
@@ -186,7 +186,7 @@ void pololuSetup()
   
   //Serial.println("Offset:");
   for(int y=0; y<6; y++)
-    Serial.println(AN_OFFSET[y]);
+    //Serial.println(AN_OFFSET[y]);
   
   delay(2000);
   digitalWrite(STATUS_LED,HIGH);

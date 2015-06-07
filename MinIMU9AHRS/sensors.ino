@@ -28,25 +28,28 @@ void getVoltage()
 
 void sendTelemetry()
 {
-  String s = "" + String (accel_x / 26.2 , 2);
+  /*String s = "" + String (accel_x / 26.2 , 2);
   s += " " + String(accel_y / 26.2 , 2);
   s += " " + String(accel_z / 26.2 , 2);
-  Serial.print (s); Serial.print(" ");
-  Serial.print(ToDeg(roll)); Serial.print(" ");
-  Serial.print(ToDeg(pitch)); Serial.print(" ");
-  Serial.print(ToDeg(yaw)); Serial.print(" ");
+  Serial.print (s); Serial.print(" ");*/
+  Serial.write(accel_x / 262 * 1000);
+  Serial.write(accel_y / 262 * 1000);
+  Serial.write(accel_z / 262 * 1000);
+  Serial.write((int)ToDeg(roll)*100);
+  Serial.write((int)ToDeg(pitch)*100);
+  Serial.write((int)ToDeg(yaw)*100);
   /*Serial.print(pressure); Serial.print(" ");
   Serial.print(altitude); Serial.print(" ");
   Serial.print(temperature); Serial.print(" ");*/
   
   for (int i=0; i<4; ++i)
   {
-    Serial.print(rpm[i]); Serial.print(" ");
+    Serial.write(rpm[i]); 
   }
   
-  Serial.print(volt_v2, 2); Serial.print(" ");
-  debugPrint();
-  Serial.print(cm); Serial.println("");
+  Serial.write((int)volt_v2*100);
+  Serial.write(cm); Serial.write("\n");
+  //debugPrint();
 }
 
 void attachRPMSensors()
