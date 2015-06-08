@@ -8,7 +8,7 @@ const int mCount = 4;
 Servo motors[mCount];
 
 int ports [mCount] = {6, 7, 8, 9}; //Port of each servo
-int motorPos [mCount];
+byte motorPos [mCount];
 
 void setup() {
   
@@ -26,8 +26,7 @@ void setup() {
   
   for (int i = 0; i < mCount; ++i) {
     motorPos [i] = 50;
-    motors [i].write (motorPos[i] >> 8);
-    motors [i].write (motorPos[i] & mask);
+    motors [i].write (motorPos[i]);
   }
 
   
@@ -57,6 +56,7 @@ void sensors() {
   //pololuLoop();
   
   for (int i = 0; i < 4; ++i) {
+  Serial.write(0);
   Serial.write(motors [i].read());
   receiveData();
   }
@@ -67,31 +67,38 @@ void sensors() {
   
   if (cm >= 150)
   {
-   delay(22); 
+   delay(16); 
   }
   else if (cm >= 50)
   {
-   delay(32); 
+   delay(22); 
   }
   else if (cm >= 1)
   {
-   delay(40); 
+   delay(32); 
   }
   else
   {
-   delay(22); 
+   delay(16); 
   }
 }
 
 void receiveData() {
   if (Serial.available()) {      
     for (int i = 0; i < mCount; ++i) {
-            motorPos [i] = Serial.parseInt();
+            motorPos [i] = Serial.read();
             motors [i].write (motorPos[i]);
     }
+  lastSignalTime = millis();
   }       
   for (int i = 0; i < mCount; ++i) {
      motors [i].write (motorPos [i]);
+  }
+  
+  if (millis() - lastSignalTime > 3000) {
+  for (int i = 0; i < mCount; ++i) {
+     motors [i].write (0); 
+    }
   }
 }
 

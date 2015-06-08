@@ -116,6 +116,7 @@ byte gyro_sat=0;
 
 long duration;
 long cm;
+long lastSignalTime = 600000;
 
 float volt_vPow = 4.7;
 float volt_r1 = 100000;
