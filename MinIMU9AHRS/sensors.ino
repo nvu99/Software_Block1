@@ -31,22 +31,19 @@ void sendTelemetry()
   /*String s = "" + String (accel_x / 26.2 , 2);
   s += " " + String(accel_y / 26.2 , 2);
   s += " " + String(accel_z / 26.2 , 2);
-  Serial.print (s); Serial.print(" ");*/
-  Serial.write(accel_x / 262 * 1000 >> 8);
-  Serial.write(accel_x / 262 * 1000 & mask);
-  Serial.write(accel_y / 262 * 1000 >> 8);
-  Serial.write(accel_y / 262 * 1000 & mask);
-  Serial.write(accel_z / 262 * 1000 >> 8);
-  Serial.write(accel_z / 262 * 1000 & mask);
-  Serial.write((int)ToDeg(roll)*100 >> 8);
-  Serial.write((int)ToDeg(roll)*100 & mask);
-  Serial.write((int)ToDeg(pitch)*100 >> 8);
-  Serial.write((int)ToDeg(pitch)*100 & mask);
-  Serial.write((int)ToDeg(yaw)*100 >> 8);
-  Serial.write((int)ToDeg(yaw)*100 & mask);
-  /*Serial.print(pressure); Serial.print(" ");
-  Serial.print(altitude); Serial.print(" ");
-  Serial.print(temperature); Serial.print(" ");*/
+  Serial.write (s); Serial.write(" ");*/
+  Serial.write(accel_x * 1000 / 262 >> 8);
+  Serial.write(accel_x * 1000 / 262 & mask);
+  Serial.write(accel_y * 1000 / 262 >> 8);
+  Serial.write(accel_y * 1000 / 262 & mask);
+  Serial.write(accel_z * 1000 / 262 >> 8);
+  Serial.write(accel_z * 1000 / 262 & mask);
+  Serial.write((int)(ToDeg(roll)*100) >> 8);
+  Serial.write((int)(ToDeg(roll)*100) & mask);
+  Serial.write((int)(ToDeg(pitch)*100) >> 8);
+  Serial.write((int)(ToDeg(pitch)*100) & mask);
+  Serial.write((int)(ToDeg(yaw)*100) >> 8);
+  Serial.write((int)(ToDeg(yaw)*100) & mask);
   
   for (int i=0; i<4; ++i)
   {
@@ -54,10 +51,18 @@ void sendTelemetry()
     Serial.write(rpm[i] & mask); 
   }
   
-  Serial.write((int)volt_v2*100 >> 8);
-  Serial.write((int)volt_v2*100 & mask);
+  Serial.write((int)(volt_v2*100) >> 8);
+  Serial.write((int)(volt_v2*100) & mask);
   Serial.write((int)cm >> 8); 
   Serial.write((int)cm & mask);
+  
+  /*Serial.write((int)(pressure * 100) >> 8);
+  Serial.write((int)(pressure * 100) & mask);
+  Serial.write((int)(altitude * 100) >> 8);
+  Serial.write((int)(altitude * 100) & mask); 
+  Serial.write((int)(temperature * 100) >> 8);
+  Serial.write((int)(temperature * 100) & mask);*/
+  
   Serial.write("\n");
   //debugPrint();
 }

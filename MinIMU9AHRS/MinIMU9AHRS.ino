@@ -128,8 +128,7 @@ unsigned int rpm[4] = {0, 0, 0, 0};
 unsigned long timeold[4] = {0, 0, 0, 0};
 int interruptPins[4] = {2, 3, 21, 20};
 unsigned int previousMotorPos[4] = {62, 62, 62, 62};
- 
- uint16_t mask   = B11111111; 
+uint16_t mask   = B11111111; 
 
 
 float DCM_Matrix[3][3]= {

@@ -83,6 +83,7 @@ void receiveData() {
   if (Serial.available()) {      
     for (int i = 0; i < mCount; ++i) {
             motorPos [i] = Serial.parseInt();
+            
             if (motorPos [i] == 0)
             {
                 motorPos [i] = previousMotorPos[i]; 
@@ -95,15 +96,19 @@ void receiveData() {
                 previousMotorPos [i] = motorPos[i]; 
             }
     }
+  
   lastSignalTime = millis();
-  }       
+  
+  }
+
+  
   for (int i = 0; i < mCount; ++i) {
      motors [i].write (motorPos [i]);
   }
   
   if (millis() - lastSignalTime > 3000) {
   for (int i = 0; i < mCount; ++i) {
-     motors [i].write (0); 
+     motors [i].write (40); 
     }
   }
 }
