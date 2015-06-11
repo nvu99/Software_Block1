@@ -154,15 +154,14 @@ float Temporary_Matrix[3][3]={
  
 void pololuSetup()
 { 
-  Serial.begin(9600);
-  pinMode (STATUS_LED,OUTPUT);  // Status LED
+  //Serial.begin(9600);
+  //pinMode (STATUS_LED,OUTPUT);  // Status LED
   
   I2C_Init();
 
   //Serial.println("Pololu MinIMU-9 + Arduino AHRS");
 
-  digitalWrite(STATUS_LED,LOW);
-  delay(1500);
+  //digitalWrite(STATUS_LED,LOW);
  
   Accel_Init();
   Compass_Init();
@@ -191,8 +190,8 @@ void pololuSetup()
   for(int y=0; y<6; y++)
     //Serial.println(AN_OFFSET[y]);
   
-  delay(2000);
-  digitalWrite(STATUS_LED,HIGH);
+  //delay(2000);
+  //digitalWrite(STATUS_LED,HIGH);
     
   timer=millis();
   delay(20);
