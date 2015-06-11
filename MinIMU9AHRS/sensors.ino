@@ -56,8 +56,8 @@ void sendTelemetry()
   
   Serial.write((int)volt_v2*100 >> 8);
   Serial.write((int)volt_v2*100 & mask);
-  Serial.write(cm >> 8); 
-  Serial.write(cm & mask);
+  Serial.write((int)cm >> 8); 
+  Serial.write((int)cm & mask);
   Serial.write("\n");
   //debugPrint();
 }

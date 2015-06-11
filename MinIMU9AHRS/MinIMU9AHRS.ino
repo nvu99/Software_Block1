@@ -123,11 +123,11 @@ float volt_r1 = 100000;
 float volt_r2 = 10000;
 float volt_v;
 float volt_v2;
-
- volatile byte half_revolutions[4] = {0, 0, 0, 0};
- unsigned int rpm[4] = {0, 0, 0, 0};
- unsigned long timeold[4] = {0, 0, 0, 0};
- int interruptPins[4] = {2, 3, 21, 20};
+volatile byte half_revolutions[4] = {0, 0, 0, 0};
+unsigned int rpm[4] = {0, 0, 0, 0};
+unsigned long timeold[4] = {0, 0, 0, 0};
+int interruptPins[4] = {2, 3, 21, 20};
+unsigned int previousMotorPos[4] = {62, 62, 62, 62};
  
  uint16_t mask   = B11111111; 
 

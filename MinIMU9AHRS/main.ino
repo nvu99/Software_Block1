@@ -7,8 +7,8 @@
 const int mCount = 4;
 Servo motors[mCount];
 
-int ports [mCount] = {6, 7, 8, 9}; //Port of each servo
-uint8_t motorPos [mCount];
+unsigned int ports [mCount] = {6, 7, 8, 9}; //Port of each servo
+unsigned int motorPos [mCount];
 
 void setup() {
   
@@ -20,7 +20,7 @@ void setup() {
   }
   //Setup serial connection
   Serial.begin(115200);
-  Serial.setTimeout(2);
+  Serial.setTimeout(8);
   
   delay(3000);
   
@@ -40,11 +40,8 @@ void setup() {
 //Read commands and set the motors
 void loop() {
   
-  //noInterrupts();
-  receiveData();
   receiveData();
 
-  //interrupts();
   sensors();
 }
 
@@ -60,26 +57,25 @@ void sensors() {
   Serial.write(motors [i].read() & mask);
   receiveData();
   }
-  delay(2);
   
   sendTelemetry();
   
   
   if (cm >= 150)
   {
-   delay(30); 
+   delay(15); 
   }
   else if (cm >= 50)
   {
-   delay(40); 
+   delay(23); 
   }
   else if (cm >= 1)
   {
-   delay(50); 
+   delay(30); 
   }
   else
   {
-   delay(30); 
+   delay(23); 
   }
 }
 
@@ -87,19 +83,29 @@ void receiveData() {
   if (Serial.available()) {      
     for (int i = 0; i < mCount; ++i) {
             motorPos [i] = Serial.parseInt();
+            if (motorPos [i] == 0)
+            {
+                motorPos [i] = previousMotorPos[i]; 
+            }
+            
             motors [i].write (motorPos[i]);
+            
+            if (motorPos [i] != 0)
+            {
+                previousMotorPos [i] = motorPos[i]; 
+            }
     }
-  //lastSignalTime = millis();
+  lastSignalTime = millis();
   }       
   for (int i = 0; i < mCount; ++i) {
      motors [i].write (motorPos [i]);
   }
   
-  /*if (millis() - lastSignalTime > 3000) {
+  if (millis() - lastSignalTime > 3000) {
   for (int i = 0; i < mCount; ++i) {
      motors [i].write (0); 
     }
-  }*/
+  }
 }
 
 
