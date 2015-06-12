@@ -34,25 +34,35 @@ void sendTelemetry()
   Serial.write (s); Serial.write(" ");*/
   Serial.write(accel_x * 1000 / 262 >> 8);
   Serial.write(accel_x * 1000 / 262 & mask);
+  receiveData();
+  delay(5);
   Serial.write(accel_y * 1000 / 262 >> 8);
   Serial.write(accel_y * 1000 / 262 & mask);
+  receiveData();
   Serial.write(accel_z * 1000 / 262 >> 8);
   Serial.write(accel_z * 1000 / 262 & mask);
   Serial.write((int)(ToDeg(roll)*100) >> 8);
   Serial.write((int)(ToDeg(roll)*100) & mask);
+  receiveData();
   Serial.write((int)(ToDeg(pitch)*100) >> 8);
   Serial.write((int)(ToDeg(pitch)*100) & mask);
+  receiveData();
+  delay(5);
   Serial.write((int)(ToDeg(yaw)*100) >> 8);
   Serial.write((int)(ToDeg(yaw)*100) & mask);
+  receiveData();
   
   for (int i=0; i<4; ++i)
   {
     Serial.write(rpm[i] >> 8); 
     Serial.write(rpm[i] & mask); 
+    receiveData();
   }
   
   Serial.write((int)(volt_v2*100) >> 8);
   Serial.write((int)(volt_v2*100) & mask);
+  receiveData();
+  delay(5);
   Serial.write((int)cm >> 8); 
   Serial.write((int)cm & mask);
   

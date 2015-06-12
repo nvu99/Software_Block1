@@ -8,7 +8,7 @@ const int mCount = 4;
 Servo motors[mCount];
 
 unsigned int ports [mCount] = {6, 7, 8, 9}; //Port of each servo
-unsigned int motorPos [mCount];
+int motorPos [mCount];
 
 void setup() {
   
@@ -30,7 +30,7 @@ void setup() {
   }
 
   
-  pololuSetup();
+  //pololuSetup();
   //attachRPMSensors();
   
   delay(2000);
@@ -41,16 +41,19 @@ void setup() {
 void loop() {
   
   receiveData();
+  receiveData();
 
   sensors();
 }
 
 void sensors() {
   
-  distanceSensor();
-  getVoltage();
+  delay(15);
+  //distanceSensor();
+  //getVoltage();
   //getRPM();
-  pololuLoop();
+  //pololuLoop();
+  receiveData();
   
   for (int i = 0; i < 4; ++i) {
   Serial.write(motors [i].read() >> 8);
@@ -61,22 +64,24 @@ void sensors() {
   sendTelemetry();
   
   
-  if (cm >= 150)
-  {
-   delay(15); 
-  }
-  else if (cm >= 50)
-  {
-   delay(23); 
-  }
-  else if (cm >= 1)
+  /*if (cm >= 150)
   {
    delay(30); 
   }
+  else if (cm >= 50)
+  {
+   delay(40); 
+  }
+  else if (cm >= 1)
+  {
+   delay(50); 
+  }
   else
   {
-   delay(23); 
-  }
+   delay(30); 
+  }*/
+  receiveData();
+  receiveData();
 }
 
 void receiveData() {
@@ -84,9 +89,24 @@ void receiveData() {
     for (int i = 0; i < mCount; ++i) {
             motorPos [i] = Serial.parseInt();
             
-            if (motorPos [i] == 0)
+            if (motorPos [i] < 40 && previousMotorPos [i] - motorPos [i] > 22)
             {
-                motorPos [i] = previousMotorPos[i]; 
+                motorPos [i] = previousMotorPos [i]; 
+            }
+            
+            else if (motorPos [i] > 130) 
+            {
+                motorPos [i] = previousMotorPos [i];
+            }
+            
+            else if (motorPos [i] == 63 && previousMotorPos [i] - motorPos [i] > 6)
+            {
+                motorPos [i] = previousMotorPos [i];
+            }
+            
+            if (i == 2)
+            {
+                motorPos [i] = motorPos [i] + 1; 
             }
             
             motors [i].write (motorPos[i]);
@@ -95,18 +115,17 @@ void receiveData() {
             {
                 previousMotorPos [i] = motorPos[i]; 
             }
+            
     }
   
   lastSignalTime = millis();
-  
   }
-
   
-  for (int i = 0; i < mCount; ++i) {
+  /*for (int i = 0; i < mCount; ++i) {
      motors [i].write (motorPos [i]);
-  }
+  }*/
   
-  if (millis() - lastSignalTime > 3000) {
+  if (millis() - lastSignalTime > 1500) {
   for (int i = 0; i < mCount; ++i) {
      motors [i].write (40); 
     }
