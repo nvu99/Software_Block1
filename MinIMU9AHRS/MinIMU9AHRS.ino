@@ -114,21 +114,21 @@ byte gyro_sat=0;
 
 //custom variables
 
-long duration;
-long cm;
-long lastSignalTime = 600000;
+unsigned long duration;
+unsigned long cm;
+unsigned long lastSignalTime = 600000;
 
-float volt_vPow = 4.7;
-float volt_r1 = 100000;
-float volt_r2 = 10000;
+const float volt_vPow = 4.7;
+const float volt_r1 = 100000;
+const float volt_r2 = 10000;
 float volt_v;
 float volt_v2;
 volatile byte half_revolutions[4] = {0, 0, 0, 0};
 unsigned int rpm[4] = {0, 0, 0, 0};
 unsigned long timeold[4] = {0, 0, 0, 0};
-int interruptPins[4] = {2, 3, 21, 20};
-int previousMotorPos[4] = {62, 62, 62, 62};
-uint16_t mask   = B11111111; 
+const unsigned int interruptPins[4] = {2, 3, 21, 20};
+int unsigned previousMotorPos[4] = {62, 62, 62, 62};
+const uint16_t mask   = B11111111; 
 
 
 float DCM_Matrix[3][3]= {

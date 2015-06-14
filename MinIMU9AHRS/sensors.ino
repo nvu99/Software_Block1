@@ -1,7 +1,7 @@
 void distanceSensor()
 {
-   const int pingPin = 12;
-   int inPin = 11;
+   const unsigned int pingPin = 12;
+   const unsigned int inPin = 11;
   
    pinMode(pingPin,OUTPUT);
    

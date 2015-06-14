@@ -4,11 +4,11 @@
 
 
 
-const int mCount = 4;
+const unsigned int mCount = 4;
 Servo motors[mCount];
 
-unsigned int ports [mCount] = {6, 7, 8, 9}; //Port of each servo
-int motorPos [mCount];
+const unsigned int ports [mCount] = {6, 7, 8, 9}; //Port of each servo
+byte motorPos [mCount];
 
 void setup() {
   
