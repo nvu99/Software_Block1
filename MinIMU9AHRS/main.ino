@@ -30,11 +30,12 @@ void setup() {
   }
 
   
-  //pololuSetup();
+  pololuSetup();
   //attachRPMSensors();
   
   delay(2000);
 
+  analogWrite(1, LOW);
 }
 
 //Read commands and set the motors
@@ -49,10 +50,10 @@ void loop() {
 void sensors() {
   
   delay(15);
-  //distanceSensor();
-  //getVoltage();
+  distanceSensor();
+  getVoltage();
   //getRPM();
-  //pololuLoop();
+  pololuLoop();
   receiveData();
   
   for (int i = 0; i < 4; ++i) {
