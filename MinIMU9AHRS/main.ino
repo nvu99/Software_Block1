@@ -57,8 +57,18 @@ void sensors() {
   receiveData();
   
   for (int i = 0; i < 4; ++i) {
-  Serial.write(motors [i].read() >> 8);
-  Serial.write(motors [i].read() & mask);
+    
+    if (i != 2)
+    {
+      Serial.write(motors [i].read() >> 8);
+      Serial.write(motors [i].read() & mask);
+    }
+    else
+    {
+      Serial.write((motors [i].read() - 1) >> 8);
+      Serial.write((motors [i].read() - 1) & mask);
+    }
+    
   receiveData();
   }
   
