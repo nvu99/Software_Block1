@@ -127,7 +127,7 @@ volatile byte half_revolutions[4] = {0, 0, 0, 0};
 unsigned int rpm[4] = {0, 0, 0, 0};
 unsigned long timeold[4] = {0, 0, 0, 0};
 const unsigned int interruptPins[4] = {2, 3, 21, 20};
-int unsigned previousMotorPos[4] = {62, 62, 62, 62};
+int previousMotorPos[4] = {62, 62, 62, 62};
 const uint16_t mask   = B11111111; 
 
 

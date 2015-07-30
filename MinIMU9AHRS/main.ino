@@ -9,6 +9,7 @@ Servo motors[mCount];
 
 const unsigned int ports [mCount] = {6, 7, 8, 9}; //Port of each servo
 byte motorPos [mCount];
+int badReceiveCounter = 0;
 
 void setup() {
   
@@ -65,8 +66,8 @@ void sensors() {
     }
     else
     {
-      Serial.write((motors [i].read() - 1) >> 8);
-      Serial.write((motors [i].read() - 1) & mask);
+      Serial.write((motors [i].read()) >> 8);
+      Serial.write((motors [i].read()) & mask);
     }
     
   receiveData();
@@ -96,37 +97,38 @@ void sensors() {
 }
 
 void receiveData() {
-  if (Serial.available()) {      
+  if (Serial.available()) {   
+    int motorSum = 0;
     for (int i = 0; i < mCount; ++i) {
-            motorPos [i] = Serial.parseInt();
-            
-            if (motorPos [i] < 40 && previousMotorPos [i] - motorPos [i] > 22)
+            motorPos [i] = Serial.parseInt();  
+            motorSum += motorPos [i];
+            if ((motorPos [i] != 40 && motorPos [i] != 0 && motorPos[i] < 62) || 
+                (motorPos[i] > 114) )//||
+                //(abs(motorPos[i]-previousMotorPos[i]) > 60))
             {
-                motorPos [i] = previousMotorPos [i]; 
+                motorPos [i] = (badReceiveCounter >= 10 ? 40 : previousMotorPos [i]);
+                ++badReceiveCounter; 
+                continue;
             }
-            
-            else if (motorPos [i] > 130) 
-            {
-                motorPos [i] = previousMotorPos [i];
-            }
-            
-            else if (motorPos [i] == 63 && previousMotorPos [i] - motorPos [i] > 6)
-            {
-                motorPos [i] = previousMotorPos [i];
-            }
-            
-            if (i == 2)
-            {
-                motorPos [i] = motorPos [i] + 1; 
-            }
-            
-            motors [i].write (motorPos[i]);
-            
+            badReceiveCounter = 0;         
             if (motorPos [i] != 0)
             {
-                previousMotorPos [i] = motorPos[i]; 
+                if (i == 2)
+                {
+                    motorPos [i] = motorPos [i] + 1; 
+                }  
             }
-            
+    }
+    int chkSum = Serial.parseInt();
+    if (chkSum != motorSum)
+      ++badReceiveCounter;
+    for (int i = 0; i < mCount; ++i) {
+       if (chkSum != motorSum)
+         motors [i].write (previousMotorPos[i]);
+       else {
+         previousMotorPos[i] = motorPos[i];
+         motors [i].write (motorPos[i]); 
+       }
     }
   
   lastSignalTime = millis();
@@ -142,5 +144,3 @@ void receiveData() {
     }
   }
 }
-
-
